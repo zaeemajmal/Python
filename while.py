@@ -1,13 +1,12 @@
-N = int(input("Enter number- "))
-i = 1
-sum = 0
-while i <= N:
-    sum = sum+i
-    i = i+1
-    print(sum)
+num = int(input("Enter Number- "))
+sum_digits= 0
+temp= num
 
-N = int(input("Enter number- "))
-sum = 0
-for i in range(1,N+1):
-   sum = sum+i
-   print(sum)
+while temp > 0:
+    digits= temp% 10
+    sum_digits+=digits
+    temp//= 10
+print(sum_digits)    
+
+
+    
