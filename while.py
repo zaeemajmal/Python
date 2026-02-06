@@ -7,6 +7,3 @@ while temp > 0:
     sum_digits+=digits
     temp//= 10
 print(sum_digits)    
-
-
-    
