@@ -1,0 +1,8 @@
+import turtle
+turtle.Screen().bgcolor("red")
+turtle.Screen().setup(300,400)
+star = turtle.Turtle()
+for i in range(5):
+     star.forward(200)
+     star.right(144)
+turtle.done()     
