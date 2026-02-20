@@ -6,6 +6,8 @@ except ValueError as ex:
     print("Exception", ex)
 except ArithmeticError as ex:
     print("Exeption", ex)
+finally:
+    print("Done")
     
 
 
