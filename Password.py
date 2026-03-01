@@ -1,3 +1,3 @@
 import random
-Password = random.randint(10000000,99999999)
+Password = random.randbytes(11)
 print("The Password is-",Password)
