@@ -32,13 +32,7 @@ if Level == "Easy" or Level == "easy":
             else:
                 ai_runs = ai_runs + ai_choice
             print(ai_runs," - ",ai_wickets)
-        if ai_runs > target:
-            print("AI won! Try again!")  
-        elif target > ai_runs:
-            print("You won! Great!")  
-        elif target == ai_runs:
-            print("Match Drawn!")    
-        quit()
+        
     elif Choice == "Field" or Choice == "field":
         ai_runs = 0
         ai_wickets = 0
@@ -62,13 +56,7 @@ if Level == "Easy" or Level == "easy":
             else:
                 runs = runs + choice
             print(runs," - ",wickets)
-        if ai_runs > runs:
-            print("AI won! Try again!")  
-        elif runs > ai_runs:
-            print("You won! Great!")  
-        elif runs == ai_runs:
-            print("Match Drawn!")    
-        quit()
+        
 elif Level == "Medium" or Level == "medium":
     Choice = input("You choose to Bat or Field- ")
     total_wickets = int(input("Enter total wickets- "))
@@ -89,10 +77,11 @@ elif Level == "Medium" or Level == "medium":
             else:
                 runs = runs + choice
             print(runs," - ",wickets)
-        print("All out, now time to field!")  
+        print("All out, now time to field!")
+        target = runs  
         ai_runs = 0
         ai_wickets = 0
-        while ai_runs < target or ai_wickets == total_wickets:
+        while ai_runs < target or ai_wickets != total_wickets:
             choice = int(input('Enter number from 0 to 10- '))
             if choice == 0:
                 ai_choice = random.randint(0,choice+2)
@@ -106,13 +95,7 @@ elif Level == "Medium" or Level == "medium":
             else:
                 ai_runs = ai_runs + ai_choice
             print(ai_runs," - ",ai_wickets)
-        if ai_runs > runs:
-            print("AI won! Try again!")  
-        elif runs > ai_runs:
-            print("You won! Great!")  
-        elif runs == ai_runs:
-            print("Match Drawn!")    
-        quit()
+            
     elif Choice == "Field" or Choice == "field":
         ai_runs = 0
         ai_wickets = 0
@@ -130,10 +113,11 @@ elif Level == "Medium" or Level == "medium":
             else:
                 ai_runs = ai_runs + ai_choice
             print(ai_runs," - ",ai_wickets)
-        print("All out good job now time to bat!")    
+        print("All out good job now time to bat!")
+        target = ai_runs    
         runs = 0
         wickets = 0
-        while wickets != total_wickets:
+        while wickets != total_wickets or runs < target:
             choice = int(input('Enter number from 0 to 10- '))
             if choice == 0:
                 ai_choice = random.randint(0,choice+2)
@@ -147,13 +131,7 @@ elif Level == "Medium" or Level == "medium":
             else:
                 runs = runs + choice
             print(runs," - ",wickets)
-        if ai_runs > runs:
-            print("AI won! Try again!")  
-        elif runs > ai_runs:
-            print("You won! Great!")  
-        elif runs == ai_runs:
-            print("Match Drawn!")    
-        quit()
+        
 elif Level == "Hard" or Level == "hard":
     Choice = input("You choose to Bat or Field- ")
     total_wickets = int(input("Enter total wickets- "))
@@ -174,10 +152,11 @@ elif Level == "Hard" or Level == "hard":
             else:
                 runs = runs + choice
             print(runs," - ",wickets)
-        print("All out, now time to field!")  
+        print("All out, now time to field!")
+        target = runs  
         ai_runs = 0
         ai_wickets = 0
-        while ai_wickets != total_wickets or ai_runs > runs:
+        while ai_wickets != total_wickets or ai_runs < target:
             choice = int(input('Enter number from 0 to 10- '))
             if choice == 0:
                 ai_choice = random.randint(0,choice+1)
@@ -191,13 +170,7 @@ elif Level == "Hard" or Level == "hard":
             else:
                 ai_runs = ai_runs + ai_choice
             print(ai_runs," - ",ai_wickets)
-        if ai_runs > runs:
-            print("AI won! Try again!")  
-        elif runs > ai_runs:
-            print("You won! Great!")  
-        elif runs == ai_runs:
-            print("Match Drawn!")    
-        quit()
+        
     elif Choice == "Field" or Choice == "field":
         ai_runs = 0
         ai_wickets = 0
@@ -218,7 +191,7 @@ elif Level == "Hard" or Level == "hard":
         print("All out good job now time to bat!")    
         runs = 0
         wickets = 0
-        while wickets != total_wickets:
+        while wickets != total_wickets or runs < target:
             choice = int(input('Enter number from 0 to 10- '))
             if choice == 0:
                 ai_choice = random.randint(0,choice+1)
@@ -232,16 +205,17 @@ elif Level == "Hard" or Level == "hard":
             else:
                 runs = runs + choice
             print(runs," - ",wickets)
-        if ai_runs > runs:
-            print("AI won! Try again!")  
-        elif runs > ai_runs:
-            print("You won! Great!")  
-        elif runs == ai_runs:
-            print("Match Drawn!")    
-        quit()  
+           
+          
 else:
-    print("Invalid input")                                
+    print("Invalid input")
+      
+if ai_runs > runs:
+    print("AI won! Try again!")  
+elif runs > ai_runs:
+    print("You won! Great!")  
+elif runs == ai_runs:
+    print("Match Drawn!")                                  
               
                     
 
-# Edit from 95

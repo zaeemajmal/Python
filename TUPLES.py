@@ -1,0 +1,6 @@
+TUPLE = ("J",0,0.9,False)
+print(TUPLE)
+print(len(TUPLE))
+print(TUPLE.count(0))
+print(TUPLE[0:4])
+print(TUPLE.index("J"))
