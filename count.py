@@ -4,6 +4,5 @@ v = 2
 for r in i:
    if i[r] == v:
        c+=1
-print(c)        
-    
+print(c)
 

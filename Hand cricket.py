@@ -3,7 +3,4 @@ print(TUPLE)
 print(len(TUPLE))
 print(TUPLE.count(0))
 print(TUPLE[0:4])
-print(TUPLE.index("J"))                               
-              
-                    
-
+print(TUPLE.index("J"))                       
