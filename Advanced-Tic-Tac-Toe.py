@@ -1,8 +1,9 @@
 import turtle
 
+# setup screen
 screen = turtle.Screen()
 screen.bgcolor("orange")
-screen.setup(300,300)
+screen.setup(400,400)
 
 print("-----Welcome to Tic-Tac-Toe-----")
 
@@ -12,6 +13,7 @@ The_Board = {
 "C1":"", "C2":"", "C3":""
 }
 
+# draw grid
 Board = turtle.Turtle()
 Board.speed(0)
 Board.penup()
@@ -36,18 +38,40 @@ positions = {
 "C1":(-100,-100),"C2":(0,-100),"C3":(100,-100)
 }
 
-X_turtle = turtle.Turtle()
-X_turtle.penup()
-X_turtle.hideturtle()
-X_turtle.shape("triangle")
-X_turtle.shapesize(2)
+# X drawer
+X_draw = turtle.Turtle()
+X_draw.hideturtle()
+X_draw.pensize(5)
 
+def draw_X(x,y):
+    X_draw.penup()
+    X_draw.goto(x-20,y-20)
+    X_draw.pendown()
+    X_draw.goto(x+20,y+20)
+
+    X_draw.penup()
+    X_draw.goto(x-20,y+20)
+    X_draw.pendown()
+    X_draw.goto(x+20,y-20)
+
+# O turtle
 O_turtle = turtle.Turtle()
 O_turtle.penup()
 O_turtle.hideturtle()
 O_turtle.shape("circle")
 O_turtle.shapesize(2)
 
+# ✅ MESSAGE TURTLE (FIXED)
+Msg = turtle.Turtle()
+Msg.hideturtle()
+Msg.penup()
+
+def show_message(text):
+    Msg.clear()
+    Msg.goto(0,160)   # 👈 always visible top
+    Msg.write(text, align="center", font=("Arial",16,"bold"))
+
+# win line
 WinLine = turtle.Turtle()
 WinLine.hideturtle()
 WinLine.pensize(10)
@@ -67,7 +91,6 @@ winning_combos = [
 ]
 
 def draw_win_line(combo):
-
     start = positions[combo[0]]
     end = positions[combo[2]]
 
@@ -76,9 +99,7 @@ def draw_win_line(combo):
     WinLine.pendown()
     WinLine.goto(end)
 
-
 def check_win():
-
     for combo in winning_combos:
 
         if all(The_Board[pos] == "X" for pos in combo):
@@ -91,7 +112,7 @@ def check_win():
 
     return None
 
-
+# GAME LOOP
 while "" in The_Board.values():
 
     move = screen.textinput("Move", player + " enter A1-C3")
@@ -101,28 +122,40 @@ while "" in The_Board.values():
 
     move = move.upper()
 
-    if move in The_Board and The_Board[move] == "":
+    # ❌ invalid input
+    if move not in The_Board:
+        show_message("Invalid move! Use A1-C3")
+        continue
 
-        The_Board[move] = player
+    # ❌ already filled
+    if The_Board[move] != "":
+        show_message("Place already filled!")
+        continue
 
-        x,y = positions[move]
+    # ✅ valid move
+    show_message("")  # clear message
+    The_Board[move] = player
 
-        if player == "X":
-            X_turtle.goto(x,y)
-            X_turtle.stamp()
-        else:
-            O_turtle.goto(x,y)
-            O_turtle.stamp()
+    x,y = positions[move]
 
-        winner = check_win()
+    if player == "X":
+        draw_X(x,y)
+    else:
+        O_turtle.goto(x,y)
+        O_turtle.stamp()
 
-        if winner:
-            print(winner,"wins!")
-            break
+    winner = check_win()
 
-        player = "O" if player=="X" else "X"
+    if winner:
+        show_message(winner + " WINS!")
+        print(winner, "wins!")
+        break
 
+    player = "O" if player=="X" else "X"
+
+# draw
 if "" not in The_Board.values() and not check_win():
+    show_message("DRAW!")
     print("Draw!")
 
 turtle.done()
