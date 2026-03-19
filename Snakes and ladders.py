@@ -1,15 +1,7 @@
 import turtle
 import random
-the_board = {1:"",2:"",3:"",4:"",5:"",6:"",7:"",8:"",9:"",10:"",
-            11:"",12:"",13:"",14:"",15:"",16:"",17:"",18:"",19:"",20:"",
-            21:"",22:"",23:"",24:"",25:"",26:"",27:"",28:"",29:"",30:"",
-            31:"",32:"",33:"",34:"",35:"",36:"",37:"",38:"",39:"",40:"",
-            41:"",42:"",43:"",44:"",45:"",46:"",47:"",48:"",49:"",50:"",
-            51:"",52:"",53:"",54:"",55:"",56:"",57:"",58:"",59:"",60:"",
-            61:"",62:"",63:"",64:"",65:"",66:"",67:"",68:"",69:"",70:"",
-            71:"",72:"",73:"",74:"",75:"",76:"",77:"",78:"",79:"",80:"",
-            81:"",82:"",83:"",84:"",85:"",86:"",87:"",88:"",89:"",90:"",
-            91:"",92:"",93:"",94:"",95:"",96:"",97:"",98:"",99:"",100:"",}
+print("Welcome to snakes and ladders\nInstruction to remember:-\n Look at the console to see how what number you rolled\nEnjoy the game! ")
+
 n  = int(input("Enter number of players:- "))
 if n > 4 : 
     print("Max Limit 4")
@@ -21,14 +13,16 @@ else:
     pass
 Players = {}
 for i in range(n):
-    Player = "Player "+ str(i)
-    Players[Player] = {"Pos":0,"Colour":""}
+    Player = "Player " + str(i+1)
+    Players[Player] = {"Pos":1,"Colour":""}
+
 Players["Player 1"]["Colour"] = "red"
 Players["Player 2"]["Colour"] = "blue"
-if n == 3:
+
+if n >= 3:
     Players["Player 3"]["Colour"] = "yellow"
+
 if n == 4:
-    Players["Player 3"]["Colour"] = "yellow"
     Players["Player 4"]["Colour"] = "green"
 screen = turtle.Screen()
 screen.setup(1000, 800)
@@ -37,12 +31,6 @@ turtle.hideturtle()
 pen = turtle.Turtle()
 pen.speed(100)
 pen.penup()
-from turtle import Screen, Turtle
-
-CURSOR_SIZE = 20
-FONT_SIZE = 12
-FONT = ('Arial', FONT_SIZE, 'bold')
-
 
 def get_pos(n, start_x, start_y, square_size):
     row = (n - 1) // 10
@@ -118,12 +106,12 @@ def draw_snake(x1, y1, x2, y2):
     pen.color("black")
     pen.width(1)
 
-
+square_size = 50
+start_x = -200
+start_y = -200
 def draw_board():
 
-    square_size = 50
-    start_x = -200
-    start_y = -200
+    
     number = 1
 
     for row in range(10):
@@ -199,4 +187,81 @@ def draw_board():
     draw_snake(x1, y1, x2, y2)
 draw_board()
 
+for name in Players:
+    t = turtle.Turtle()
+    t.shape("circle")
+    t.color(Players[name]["Colour"])
+    t.penup()
+    Players[name]["T"] = t
+
+
+def update_positions():
+    i = 0
+    for name in Players:
+        pos = Players[name]["Pos"]
+        if pos == 0:
+            pos = 1
+
+        x, y = get_pos(pos, start_x, start_y, square_size)
+
+        dx = -10 if i % 2 == 0 else 10
+        dy = 0 if i < 2 else 10
+
+        Players[name]["T"].goto(x + dx, y + dy)
+        i += 1
+
+
+turn = 1
+player_names = list(Players.keys())
+update_positions()
+while True:
+    current = player_names[turn - 1]
+    choice = turtle.textinput("Dice Roll", f"{current} roll dice? (Y/N/Q): ")
+
+    if choice is None:
+       continue
+
+    choice = choice.upper()
+
+    if choice == "Q":
+        print("Game Ended")
+        exit()
+
+    if choice == "N":
+        continue
+
+    if choice == "Y":
+        dice = random.randint(1, 6)
+        print(current, "rolled:", dice)
+
+        Players[current]["Pos"] += dice
+
+        if Players[current]["Pos"] > 100:
+            Players[current]["Pos"] -= dice 
+
+        ladders = {19:38, 31:52, 50:70, 60:82, 80:97}
+        snakes = {99:87, 67:13, 63:37, 30:7, 90:47}
+
+        pos = Players[current]["Pos"]
+
+        if pos in ladders:
+            print("Ladder!")
+            Players[current]["Pos"] = ladders[pos]
+
+        elif pos in snakes:
+            print("Snake!")
+            Players[current]["Pos"] = snakes[pos]
+
+        update_positions()
+
+        if Players[current]["Pos"] == 100:
+            print(current, "WINS")
+            break
+
+        turn += 1
+        if turn > n:
+            turn = 1
+
+    else:
+        print("Invalid input! Enter Y, N or Q")        
 turtle.done()
