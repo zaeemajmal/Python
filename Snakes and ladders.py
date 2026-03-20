@@ -1,7 +1,6 @@
 import turtle
 import random
-print("Welcome to snakes and ladders\nInstruction to remember:-\n Look at the console to see how what number you rolled\nEnjoy the game! ")
-
+print("----Welcome to Snakes and ladders----\nKeypoint to remember look at the TERMINAL to see the number rolled\nEnjoy the game!")
 n  = int(input("Enter number of players:- "))
 if n > 4 : 
     print("Max Limit 4")
@@ -194,7 +193,6 @@ for name in Players:
     t.penup()
     Players[name]["T"] = t
 
-
 def update_positions():
     i = 0
     for name in Players:
@@ -209,11 +207,11 @@ def update_positions():
 
         Players[name]["T"].goto(x + dx, y + dy)
         i += 1
-
+update_positions()
 
 turn = 1
 player_names = list(Players.keys())
-update_positions()
+
 while True:
     current = player_names[turn - 1]
     choice = turtle.textinput("Dice Roll", f"{current} roll dice? (Y/N/Q): ")
@@ -225,7 +223,7 @@ while True:
 
     if choice == "Q":
         print("Game Ended")
-        exit()
+        break
 
     if choice == "N":
         continue
